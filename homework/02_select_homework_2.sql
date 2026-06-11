@@ -24,17 +24,22 @@ limit
 # 재직 중인 ‘대리’들의 직원명, 직급명, 급여, 사원번호, 이메일, 전화번호, 입사일을 출력하세요.
 # 단, 급여를 기준으로 내림차순 출력하세요.
 select
-    EMP_NAME,
-    JOB_NAME,
-    SALARY,
-    EMP_ID,
-    EMAIL,
-    PHONE,
-    HIRE_DATE
+    e.EMP_NAME as 직원명,
+    j.JOB_NAME as 직급명,
+    e.SALARY as 급여,
+    e.EMP_ID as 사원번호,
+    e.EMAIL as 이메일,
+    e.PHONE as 전화번호,
+    e.HIRE_DATE as 입사일
 from
-    employee,
-    job
+    employee e
+join
+    job j
+on
+    e.JOB_CODE = j.JOB_CODE
 where
-    JOB_NAME = '대리'
+    j.JOB_NAME = '대리'
+and
+    e.ENT_YN = 'N'
 order by
-    SALARY desc;
+    e.SALARY desc;
